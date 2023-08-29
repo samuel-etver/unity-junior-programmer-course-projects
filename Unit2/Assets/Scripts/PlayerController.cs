@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     public float Speed = 10.0f;
     public float XRange = 10.0f;
+    public GameObject ProjectilePrefab;
 
     void Update()
     {
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-
+            Instantiate(ProjectilePrefab, transform.position, ProjectilePrefab.transform.rotation);
         }
     }
 }
