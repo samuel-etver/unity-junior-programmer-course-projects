@@ -242,7 +242,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3bd8a450fcb589542a7843ea7bda2ee6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.05
+      value: -1.01
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3bd8a450fcb589542a7843ea7bda2ee6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -543,6 +543,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Speed: 10
   XRange: 10
+  ZMax: 15
+  ZMin: -1
   ProjectilePrefab: {fileID: 8153005117400767353, guid: 93bc817f7bb0d5c4c88060b599292598, type: 3}
 --- !u!850595691 &892644321
 LightingSettings:
