@@ -8,10 +8,18 @@ public class PlayerController : MonoBehaviour
     public float XRange = 10.0f;
     public float ZMax = 15.0f;
     public float ZMin = -1.0f;
-    public int Lives { get; private set; } = 3;
-    public int Score { get; private set; } = 0;
 
     public GameObject ProjectilePrefab;
+
+    public GameObject GameManager;
+    private PlayerLives _playerLives;
+
+
+    private void Start()
+    {
+        _playerLives = GameManager.GetComponent<PlayerLives>();    
+    }
+
 
     void Update()
     {
@@ -46,6 +54,23 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Instantiate(ProjectilePrefab, transform.position, ProjectilePrefab.transform.rotation);
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent<Animal>(out var animal))
+        {
+            if (animal.Agressive)
+            { 
+                _playerLives.DecLive();
+                if (_playerLives.IsDead())
+                {
+                    Destroy(gameObject);
+                    Debug.Log("Game Over!");
+                }
+            }
         }
     }
 }

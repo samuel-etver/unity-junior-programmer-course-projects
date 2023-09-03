@@ -393,7 +393,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Agressive: 0
   HungerSlider: {fileID: 7919128534857997042}
-  amountToBeFed: 0
+  AmountToBeFed: 3
 --- !u!1 &1298232169667249517
 GameObject:
   m_ObjectHideFlags: 0

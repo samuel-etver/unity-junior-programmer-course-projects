@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public GameObject GameManager;
     public GameObject[] AnimalPrefabs;
 
     private static readonly float _spawnRangeMaxX = 20.0f;
@@ -21,7 +22,7 @@ public class SpawnManager : MonoBehaviour
 
     void Start()
     {
-        //InvokeRepeating(nameof(SpawnRandomAnimalFromTop), _startDelay, _spawnInterval);
+        InvokeRepeating(nameof(SpawnRandomAnimalFromTop), _startDelay, _spawnInterval);
         StartCoroutine(SpawnRandomAgressiveAnimal());
     }
 
@@ -33,6 +34,7 @@ public class SpawnManager : MonoBehaviour
                                            spawnPos,
                                            AnimalPrefabs[animalIndex].transform.rotation);
         var animal = animalGameObject.GetComponent<Animal>();
+        animal.GameManager = GameManager;
         animal.Agressive = agressive;
 
         return animalGameObject;
@@ -49,7 +51,7 @@ public class SpawnManager : MonoBehaviour
     private void SpawnRandomAnimalFromLeft()
     {
         Vector3 spawnPos = new(_spawnFromLeftPosX, 0, Random.Range(_spawnRangeMinZ, _spawnRangeMaxZ));
-        var animalGameObject = SpawnRandomAnimal(spawnPos, false);
+        var animalGameObject = SpawnRandomAnimal(spawnPos, true);
         animalGameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
     }
 
@@ -57,7 +59,7 @@ public class SpawnManager : MonoBehaviour
     private void SpawnRandomAnimalFromRight()
     {
         Vector3 spawnPos = new(_spawnFromRightPosX, 0, Random.Range(_spawnRangeMinZ, _spawnRangeMaxZ));
-        var animalGameObject = SpawnRandomAnimal(spawnPos, false);
+        var animalGameObject = SpawnRandomAnimal(spawnPos, true);
         animalGameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
     }
 
@@ -72,5 +74,6 @@ public class SpawnManager : MonoBehaviour
             SpawnRandomAnimalFromRight();
             yield return new WaitForSeconds(_spawnInterval);
         }
+        
     }
 }

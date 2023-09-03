@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Content;
 using UnityEngine;
 
 public class DestroyOutOfBounds : MonoBehaviour
@@ -14,18 +15,24 @@ public class DestroyOutOfBounds : MonoBehaviour
         float z = transform.position.z;
         float x = transform.position.x;
 
-        bool gameOver = false;
+        bool playerLiveOver = false;
 
         if (z > _topBound ||
-            (gameOver = (z < _lowerBound)) ||
+            (playerLiveOver = (z < _lowerBound)) ||
             x > _rightBound ||
             x < _leftBound
             )
         {
-            if (gameOver)
+            if(playerLiveOver && TryGetComponent<Animal>(out var animal))
             {
-                Debug.Log("Game Over !");
+                var lives = animal.GameManager.GetComponent<PlayerLives>();
+                lives.DecLive();
+                if (lives.Dead) 
+                {
+                    Debug.Log("Game Over !");
+                }
             }
+
             Destroy(gameObject); 
         }
     }
