@@ -15,24 +15,12 @@ public class DestroyOutOfBounds : MonoBehaviour
         float z = transform.position.z;
         float x = transform.position.x;
 
-        bool playerLiveOver = false;
-
         if (z > _topBound ||
-            (playerLiveOver = (z < _lowerBound)) ||
+            z < _lowerBound ||
             x > _rightBound ||
             x < _leftBound
             )
         {
-            if(playerLiveOver && TryGetComponent<Animal>(out var animal))
-            {
-                var lives = animal.GameManager.GetComponent<PlayerLives>();
-                lives.DecLive();
-                if (lives.Dead) 
-                {
-                    Debug.Log("Game Over !");
-                }
-            }
-
             Destroy(gameObject); 
         }
     }

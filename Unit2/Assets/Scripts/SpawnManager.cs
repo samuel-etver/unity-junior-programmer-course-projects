@@ -7,13 +7,13 @@ public class SpawnManager : MonoBehaviour
     public GameObject GameManager;
     public GameObject[] AnimalPrefabs;
 
-    private static readonly float _spawnRangeMaxX = 20.0f;
+    private static readonly float _spawnRangeMaxX = 14.0f;
     private static readonly float _spawnRangeMinX = -_spawnRangeMaxX;
     private static readonly float _spawnFromTopPosZ = 20.0f;
 
-    private static readonly float _spawnRangeMaxZ = 20.0f;
-    private static readonly float _spawnRangeMinZ = 10.0f;
-    private static readonly float _spawnFromRightPosX = 10;
+    private static readonly float _spawnRangeMaxZ = 15.0f;
+    private static readonly float _spawnRangeMinZ = 5.0f;
+    private static readonly float _spawnFromRightPosX = 20;
     private static readonly float _spawnFromLeftPosX = -_spawnFromRightPosX;
 
     private readonly float _startDelay = 2;
