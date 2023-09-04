@@ -39,3 +39,8 @@
 * Display a “hunger bar” on top of each of the animals. Then, each time you feed one of them, the hunger bar fills up a little. Each animal should require different amounts of food to successfully “feed” them
 
 ![](Screenshots/unit2-screenshot1.png)  
+
+
+## Challenge 2
+
+### Challenge Objective
