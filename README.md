@@ -33,5 +33,9 @@
 
 ### Unit Objective
 
+* Allow the player to move forward and backwards, left and right within a certain range.
+* Have animals that  spawn from the top and also from the left and right side of the screen.  
+* At the start of the game, the player’s Lives = 3 and Score = 0. If the player feeds an animal, increase and display the Score. If the player is hit by a animal (spawn from the left or right side), decrease and display the Lives. When the number of Lives reaches 0, log “Game Over” in the console.
+* Display a “hunger bar” on top of each of the animals. Then, each time you feed one of them, the hunger bar fills up a little. Each animal should require different amounts of food to successfully “feed” them
 
 ![](Screenshots/unit2-screenshot1.png)  
