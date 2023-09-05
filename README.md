@@ -44,3 +44,11 @@
 ## Challenge 2
 
 ### Challenge Objective
+
+* Make the balls spawn from the top of the screen
+* Make the player spawn dogs
+* The balls should only be destroyed when coming into direct contact with a dog
+* Balls should be destroyed when they leave the bottom of the screen and dogs should be destroyed when they leave the left side of the screen
+* Ball 1, 2, and 3 should be spawned randomly
+* Make the spawn interval a random value between 3 seconds and 5 seconds
+
