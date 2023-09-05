@@ -52,3 +52,5 @@
 * Ball 1, 2, and 3 should be spawned randomly
 * Make the spawn interval a random value between 3 seconds and 5 seconds
 
+
+![](Screenshots/challenge2-screenshot1.png)  
