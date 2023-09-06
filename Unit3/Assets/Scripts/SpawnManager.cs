@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public GameObject Background;
     public GameObject[] ObstaclePrefabs;
-    public float ObstacleSpeed = 3;
+
+    private float _obstacleSpeed = 3;
     
     private static readonly Vector3 _spawnPos = new (25, 1, 0);
     private static readonly float _startDelay = 2.0f;
@@ -14,6 +16,8 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
+        var moveLeftComponent = Background.GetComponent<MoveLeft>();
+        _obstacleSpeed = moveLeftComponent.Speed;
         InvokeRepeating(nameof(SpawnObstacle), _startDelay, _repeatDelay);
     }
 
@@ -30,6 +34,6 @@ public class SpawnManager : MonoBehaviour
         var obstaclePrefab = ObstaclePrefabs[prefabIndex];
         var obstacleGameObject = Instantiate(obstaclePrefab, _spawnPos, obstaclePrefab.transform.rotation);
         var moveLeftComponent = obstacleGameObject.GetComponent<MoveLeft>();
-        moveLeftComponent.Speed = ObstacleSpeed;
+        moveLeftComponent.Speed = _obstacleSpeed;
     }
 }

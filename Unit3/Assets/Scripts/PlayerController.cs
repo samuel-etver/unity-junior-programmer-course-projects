@@ -9,12 +9,14 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rigidbody;
     private bool _isOnGround = true;
-    
+    private Animator _animator;
+
 
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _animator = GetComponent<Animator>();
     }
 
 
