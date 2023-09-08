@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
+        _animator.SetFloat("Speed_f", 0.4f);
+        Invoke(nameof(StartRun), Config.StartupDelay);
     }
 
 
@@ -27,6 +29,12 @@ public class PlayerController : MonoBehaviour
             _rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             _isOnGround = false;
         }
+    }
+
+
+    private void StartRun()
+    {
+        _animator.SetFloat("Speed_f", 1.0f);
     }
 
 

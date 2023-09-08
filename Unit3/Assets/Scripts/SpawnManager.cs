@@ -10,7 +10,7 @@ public class SpawnManager : MonoBehaviour
     private float _obstacleSpeed = 3;
     
     private static readonly Vector3 _spawnPos = new (25, 1, 0);
-    private static readonly float _startDelay = 2.0f;
+    private static readonly float _startDelay = Config.StartupDelay;
     private static readonly float _repeatDelay = 2.0f;
 
 
