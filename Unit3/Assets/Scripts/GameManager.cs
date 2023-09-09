@@ -13,6 +13,13 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool GameOver = false;
 
+    private static readonly float _gravityModifier = 3.0f;
+
+    private void Start()
+    {
+        Physics.gravity *= _gravityModifier;
+    }
+
 
     public void AddScore(int value)
     {

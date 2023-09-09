@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameManager GameManager;
+    public ParticleSystem ExplosionParticle;
+    public ParticleSystem DirtParticle;
 
     public float JumpForce = 0.0f;
 
@@ -26,12 +28,18 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
         _animator.SetFloat("Speed_f", 0.4f);
+        DirtParticle.Stop();
         Invoke(nameof(StartRun), Config.StartupDelay);
     }
 
 
     void Update()
     {
+        if (GameManager.GameOver)
+        {
+            return;
+        }
+
         if (_startWalk)
         {
             float deltaX = Time.deltaTime * _walkSpeed;
@@ -41,13 +49,14 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (_jumpCount < 2)
             {
                 _jumpCount++;
-                _rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+                _rigidbody.AddForce( Vector3.up * JumpForce * (_jumpCount == 2 ? 0.5f : 1.0f), ForceMode.Impulse);
+                _animator.SetTrigger("Jump_trig");
+                DirtParticle.Stop();
             }
         }
     }
@@ -57,20 +66,27 @@ public class PlayerController : MonoBehaviour
     {
         _startWalk = false;
         _animator.SetFloat("Speed_f", 1.0f);
+        DirtParticle.Play();
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("collision");
         if (collision.gameObject.GetComponent<Ground>())
-        {
+        {           
             _jumpCount = 0;
+
+            if (!_startWalk)
+            {
+                DirtParticle.Play();
+            }
         }
         else if (collision.gameObject.GetComponent<Obstacle>())
         {
             _animator.SetBool("Death_b", true);
             _animator.SetInteger("DeathType_int", 1);
+            ExplosionParticle.Play();
+            DirtParticle.Stop();
             GameManager.GameOver = true;
             Debug.Log("Game Over!");
         }
