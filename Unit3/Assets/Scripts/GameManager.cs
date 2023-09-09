@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool SuperSpeed = false;
 
+    [HideInInspector]
+    public bool GameOver = false;
+
 
     public void AddScore(int value)
     {

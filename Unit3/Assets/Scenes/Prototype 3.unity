@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4779dc2de2060fc4c84159accaf9a879, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 1669048253}
+  GameManager: {fileID: 1669048255}
   Speed: 10
 --- !u!65 &835818924
 BoxCollider:
@@ -526,7 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e44dbd553754d48a414241600a3b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManager: {fileID: 1669048253}
+  GameManager: {fileID: 1669048255}
   Background: {fileID: 835818919}
   ObstaclePrefabs:
   - {fileID: 2593389454166680911, guid: 9b38ee4835c77be43a12576c729a1e6a, type: 3}
@@ -597,6 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aab78dd2d7da42b45a25875a50c22115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameManager: {fileID: 1669048255}
   JumpForce: 10
 --- !u!1 &1669048253
 GameObject:
@@ -644,6 +645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Score: 0
   SuperSpeed: 0
+  GameOver: 0
 --- !u!1 &2014335011
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,6 +658,7 @@ GameObject:
   - component: {fileID: 2014335014}
   - component: {fileID: 2014335013}
   - component: {fileID: 2014335012}
+  - component: {fileID: 2014335016}
   m_Layer: 9
   m_Name: Ground
   m_TagString: Untagged
@@ -741,3 +744,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2014335016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014335011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58ac8232182fa1d45bb897adc581c6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

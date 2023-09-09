@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameManager GameManager;
+
     public float JumpForce = 0.0f;
 
     private Rigidbody _rigidbody;
@@ -17,7 +19,6 @@ public class PlayerController : MonoBehaviour
 
     private bool _startWalk = true;
     private static readonly float _walkSpeed = 3.0f;
-
 
 
     void Start()
@@ -61,6 +62,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        _jumpCount = 0;
+        Debug.Log("collision");
+        if (collision.gameObject.GetComponent<Ground>())
+        {
+            _jumpCount = 0;
+        }
+        else if (collision.gameObject.GetComponent<Obstacle>())
+        {
+            _animator.SetBool("Death_b", true);
+            _animator.SetInteger("DeathType_int", 1);
+            GameManager.GameOver = true;
+            Debug.Log("Game Over!");
+        }
+
     }
 }
