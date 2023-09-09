@@ -6,8 +6,6 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject Background;
     public GameObject[] ObstaclePrefabs;
-
-    private float _obstacleSpeed = 3;
     
     private static readonly Vector3 _spawnPos = new (25, 1, 0);
     private static readonly float _startDelay = Config.StartupDelay;
@@ -16,15 +14,7 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
-        var moveLeftComponent = Background.GetComponent<MoveLeft>();
-        _obstacleSpeed = moveLeftComponent.Speed;
-        InvokeRepeating(nameof(SpawnObstacle), _startDelay, _repeatDelay);
-    }
-
-
-    void Update()
-    {
-        
+        InvokeRepeating(nameof(SpawnObstacle), _startDelay + 0.5f, _repeatDelay);
     }
 
 
@@ -34,6 +24,6 @@ public class SpawnManager : MonoBehaviour
         var obstaclePrefab = ObstaclePrefabs[prefabIndex];
         var obstacleGameObject = Instantiate(obstaclePrefab, _spawnPos, obstaclePrefab.transform.rotation);
         var moveLeftComponent = obstacleGameObject.GetComponent<MoveLeft>();
-        moveLeftComponent.Speed = _obstacleSpeed;
+        moveLeftComponent.Speed = Background.GetComponent<MoveLeft>().Speed;
     }
 }
