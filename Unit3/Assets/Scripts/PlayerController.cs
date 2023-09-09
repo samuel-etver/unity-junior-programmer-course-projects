@@ -5,8 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameManager GameManager;
+
     public ParticleSystem ExplosionParticle;
     public ParticleSystem DirtParticle;
+
+    public AudioClip JumpSound;
+    public AudioClip CrashSound;
+    private AudioSource _playerAudio;
 
     public float JumpForce = 0.0f;
 
@@ -29,6 +34,7 @@ public class PlayerController : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.SetFloat("Speed_f", 0.4f);
         DirtParticle.Stop();
+        _playerAudio = GetComponent<AudioSource>();
         Invoke(nameof(StartRun), Config.StartupDelay);
     }
 
@@ -54,9 +60,10 @@ public class PlayerController : MonoBehaviour
             if (_jumpCount < 2)
             {
                 _jumpCount++;
-                _rigidbody.AddForce( Vector3.up * JumpForce * (_jumpCount == 2 ? 0.5f : 1.0f), ForceMode.Impulse);
+                _rigidbody.AddForce( Vector3.up * (JumpForce * (_jumpCount == 2 ? 0.5f : 1.0f)), ForceMode.Impulse);
                 _animator.SetTrigger("Jump_trig");
                 DirtParticle.Stop();
+                _playerAudio.PlayOneShot(JumpSound, 1.0f);
             }
         }
     }
@@ -87,6 +94,7 @@ public class PlayerController : MonoBehaviour
             {
                 _animator.SetBool("Death_b", true);
                 _animator.SetInteger("DeathType_int", 1);
+                _playerAudio.PlayOneShot(CrashSound, 1.0f);
                 ExplosionParticle.Play();
                 DirtParticle.Stop();
                 GameManager.GameOver = true;

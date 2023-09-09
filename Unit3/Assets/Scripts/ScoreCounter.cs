@@ -14,6 +14,5 @@ public class ScoreCounter : MonoBehaviour
             GameManager.AddScore(1);
             Debug.Log("Score=" + GameManager.Score);
         }
-
     }
 }
