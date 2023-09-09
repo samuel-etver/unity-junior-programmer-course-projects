@@ -76,20 +76,22 @@ public class PlayerController : MonoBehaviour
         {           
             _jumpCount = 0;
 
-            if (!_startWalk)
+            if (!_startWalk && GameManager.GameOver == false)
             {
                 DirtParticle.Play();
             }
         }
         else if (collision.gameObject.GetComponent<Obstacle>())
         {
-            _animator.SetBool("Death_b", true);
-            _animator.SetInteger("DeathType_int", 1);
-            ExplosionParticle.Play();
-            DirtParticle.Stop();
-            GameManager.GameOver = true;
-            Debug.Log("Game Over!");
+            if (GameManager.GameOver == false)
+            {
+                _animator.SetBool("Death_b", true);
+                _animator.SetInteger("DeathType_int", 1);
+                ExplosionParticle.Play();
+                DirtParticle.Stop();
+                GameManager.GameOver = true;
+                Debug.Log("Game Over!");
+            }
         }
-
     }
 }

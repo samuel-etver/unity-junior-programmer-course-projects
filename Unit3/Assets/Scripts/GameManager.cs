@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     private static readonly float _gravityModifier = 3.0f;
 
+
     private void Start()
     {
         Physics.gravity *= _gravityModifier;

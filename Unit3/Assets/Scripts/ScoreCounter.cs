@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    public GameManager GameManager;
+
+
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(collision.gameObject.name);
-        Debug.Log("OK");
-        if (collision.gameObject.GetComponent<ScoreItem>())
+        if (other.gameObject.GetComponent<ScoreItem>())
         {
-            Debug.Log("OO!");
+            GameManager.AddScore(1);
+            Debug.Log("Score=" + GameManager.Score);
         }
+
     }
 }
