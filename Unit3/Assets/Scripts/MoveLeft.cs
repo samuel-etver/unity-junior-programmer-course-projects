@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class MoveLeft : MonoBehaviour
 {
+    public GameObject GameManager;
+
     public float Speed = 30.0f;
+
 
 
     void Update()
     {
-        transform.Translate(Vector3.left * (Time.deltaTime * Speed));
+        float speedFactor = 
+          GameManager.GetComponent<GameManager>().SuperSpeed ? 2.0f : 1.0f;
+        transform.Translate(Vector3.left * (Time.deltaTime * Speed * speedFactor));
     }
 }

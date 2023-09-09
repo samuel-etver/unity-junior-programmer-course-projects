@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public GameObject GameManager;
     public GameObject Background;
     public GameObject[] ObstaclePrefabs;
     
@@ -25,5 +26,6 @@ public class SpawnManager : MonoBehaviour
         var obstacleGameObject = Instantiate(obstaclePrefab, _spawnPos, obstaclePrefab.transform.rotation);
         var moveLeftComponent = obstacleGameObject.GetComponent<MoveLeft>();
         moveLeftComponent.Speed = Background.GetComponent<MoveLeft>().Speed;
+        moveLeftComponent.GameManager = GameManager;
     }
 }

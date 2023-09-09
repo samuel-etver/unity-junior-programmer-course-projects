@@ -5,11 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float JumpForce = 0.0f;
-    public bool IsOnGround { get { return _isOnGround; } }
 
     private Rigidbody _rigidbody;
-    private bool _isOnGround = true;
+
+    private bool IsOnGround {
+        get { return _jumpCount == 0; }
+    }
+    private int _jumpCount = 0;
+
     private Animator _animator;
+
     private bool _startWalk = true;
     private static readonly float _walkSpeed = 3.0f;
 
@@ -36,10 +41,13 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && _isOnGround)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            _rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            _isOnGround = false;
+            if (_jumpCount < 2)
+            {
+                _jumpCount++;
+                _rigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+            }
         }
     }
 
@@ -53,6 +61,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        _isOnGround = true;
+        _jumpCount = 0;
     }
 }
