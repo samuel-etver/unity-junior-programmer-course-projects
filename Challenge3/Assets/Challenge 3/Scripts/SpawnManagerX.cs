@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class SpawnManagerX : MonoBehaviour
 {
-    public GameObject[] objectPrefabs;
-    private float spawnDelay = 2;
-    private float spawnInterval = 1.5f;
+    public GameObject[] ObjectPrefabs;
 
-    private PlayerControllerX playerControllerScript;
+    private static readonly float _spawnDelay = 2;
+    private static readonly float _spawnInterval = 1.5f;
+
+    private PlayerControllerX _playerControllerScript;
 
 
     void Start()
     {
-        InvokeRepeating(nameof(SpawnObjects), spawnDelay, spawnInterval);
-        playerControllerScript = GameObject.Find("Player").GetComponent<PlayerControllerX>();
+        InvokeRepeating(nameof(SpawnObjects), _spawnDelay, _spawnInterval);
+        _playerControllerScript = GameObject.Find("Player").GetComponent<PlayerControllerX>();
     }
 
 
@@ -22,14 +23,13 @@ public class SpawnManagerX : MonoBehaviour
     void SpawnObjects ()
     {
         // Set random spawn location and random object index
-        Vector3 spawnLocation = new Vector3(30, Random.Range(5, 15), 0);
-        int index = Random.Range(0, objectPrefabs.Length);
+        Vector3 spawnLocation = new (30, Random.Range(5, 15), 0);
+        int index = Random.Range(0, ObjectPrefabs.Length);
 
         // If game is still active, spawn new object
-        if (!playerControllerScript.gameOver)
+        if (!_playerControllerScript.GameOver)
         {
-            Instantiate(objectPrefabs[index], spawnLocation, objectPrefabs[index].transform.rotation);
+            Instantiate(ObjectPrefabs[index], spawnLocation, ObjectPrefabs[index].transform.rotation);
         }
-
     }
 }
