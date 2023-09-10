@@ -18,9 +18,10 @@ public class PlayerControllerX : MonoBehaviour
     public AudioClip explodeSound;
 
 
-    // Start is called before the first frame update
     void Start()
     {
+        playerRb = GetComponent<Rigidbody>();
+
         Physics.gravity *= gravityModifier;
         playerAudio = GetComponent<AudioSource>();
 
@@ -29,7 +30,7 @@ public class PlayerControllerX : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         // While space is pressed and player is low enough, float up
@@ -38,6 +39,7 @@ public class PlayerControllerX : MonoBehaviour
             playerRb.AddForce(Vector3.up * floatForce);
         }
     }
+
 
     private void OnCollisionEnter(Collision other)
     {
@@ -59,7 +61,5 @@ public class PlayerControllerX : MonoBehaviour
             Destroy(other.gameObject);
 
         }
-
     }
-
 }
