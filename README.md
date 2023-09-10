@@ -59,3 +59,5 @@
 ## Unit 3
 
 ### Unit Objective
+
+![](Screenshots/unit3-screenshot1.png)  
