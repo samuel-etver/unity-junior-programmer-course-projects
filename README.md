@@ -60,4 +60,21 @@
 
 ### Unit Objective
 
+ * Repeat background
+ * Randomize obstacles
+ * Make player jump
+ * Adjust the jump animation
+ * Double jump
+ * Set up a falling animation
+ * Super speed ability and score
+ * Game start animation
+ * Play the particle on collision, add a dirt splatter particle
+ * Add music. Play Audio Clips on jump and crash
+
+   
 ![](Screenshots/unit3-screenshot1.png)  
+
+
+## Challenge 3
+
+### Challenge Objective
