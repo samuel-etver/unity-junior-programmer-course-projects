@@ -78,3 +78,11 @@
 ## Challenge 3
 
 ### Challenge Objective
+
+* The balloon should float up as the player presses spacebar
+* The background should move at start, then stop when the game is over
+* Make bombs or money objects spawn every few seconds
+* Make the fireworks display at the balloon’s position
+* Make the background repeat seamlessly
+* Prevent the player from floating their balloon too high
+* Make the balloon appear to bounce off of the ground, preventing it from leaving the bottom of the screen. There should be a sound effect when this happens!
