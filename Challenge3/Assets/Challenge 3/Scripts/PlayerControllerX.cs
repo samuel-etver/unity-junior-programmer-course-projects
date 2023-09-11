@@ -54,6 +54,8 @@ public class PlayerControllerX : MonoBehaviour
             GameOver = true;
             Debug.Log("Game Over!");
             Destroy(other.gameObject);
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
         } 
 
         // if player collides with money, fireworks
