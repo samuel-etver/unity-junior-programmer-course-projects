@@ -86,3 +86,6 @@
 * Make the background repeat seamlessly
 * Prevent the player from floating their balloon too high
 * Make the balloon appear to bounce off of the ground, preventing it from leaving the bottom of the screen. There should be a sound effect when this happens!
+
+
+![](Screenshots/challenge3-screenshot1.png)  
