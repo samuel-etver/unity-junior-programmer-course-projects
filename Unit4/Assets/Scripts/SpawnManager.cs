@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject EnemyPrefab;
+    public GameObject[] EnemyPrefabs;
     public GameObject PowerupPrefab;
 
     private static readonly float _spawnRange = 9;
@@ -36,15 +37,24 @@ public class SpawnManager : MonoBehaviour
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
+            var prefabIndex = Random.Range(0, EnemyPrefabs.Length);
+            var prefab = EnemyPrefabs[prefabIndex];
             var spawnPos = GenerateSpawnPosition();
-            Instantiate(EnemyPrefab, spawnPos, EnemyPrefab.transform.rotation);
+            Instantiate(prefab, spawnPos, prefab.transform.rotation);
         }
     }
 
 
     private void SpawnPowerup()
     {
+        var powerTypeValues = System.Enum.GetValues(typeof(PowerType));
+        var powerTypeIndex = Random.Range(0, powerTypeValues.Length);
+        var powerType = powerTypeValues.GetValue(powerTypeIndex).ConvertTo<PowerType>();
+
         var spawnPos = GenerateSpawnPosition();
-        Instantiate(PowerupPrefab, spawnPos, PowerupPrefab.transform.rotation);
+
+        var gameObject = Instantiate(PowerupPrefab, spawnPos, PowerupPrefab.transform.rotation);
+        var powerupComponent = gameObject.GetComponent<Powerup>();
+        powerupComponent.PowerType = powerType;
     }
 }
