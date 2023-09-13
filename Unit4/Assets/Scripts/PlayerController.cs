@@ -6,12 +6,15 @@ public class PlayerController : MonoBehaviour
 {
     public float Speed = 5.0f;
     private bool _hasPowerup = false;
+    private PowerType _powerType;
     private static readonly float _powerupStrength = 15.0f;
 
     private Rigidbody _rigidbody;
 
     private GameObject _focalPoint;
     private GameObject _powerupIndicator;
+
+    public GameObject ProjectilePrefab;
 
 
     void Start()
@@ -36,10 +39,25 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("Powerup"))
         {
-            _hasPowerup = true;
-            _powerupIndicator.SetActive(_hasPowerup);
+            StopCoroutine(nameof(PowerupCountdownRoutine));
+            StopCoroutine(nameof(PowerupProjectileRoutine));
+            
+            var powerup = other.gameObject.GetComponent<Powerup>();
+            _powerType = powerup.PowerType;
+
+            activatePowerup(true);
+
             Destroy(other.gameObject);
-            StartCoroutine(PowerupCountdownRoutine());
+
+            switch(_powerType)
+            {
+                case PowerType.Superpower:
+                    StartCoroutine(PowerupCountdownRoutine());
+                    break;
+                case PowerType.Projectiles:
+                    StartCoroutine(PowerupProjectileRoutine());
+                    break;
+            }
         }
     }
 
@@ -48,7 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         var otherGameObject = collision.gameObject;
 
-        if (otherGameObject.CompareTag("Enemy") && _hasPowerup)
+        if (otherGameObject.CompareTag("Enemy") && _hasPowerup && _powerType == PowerType.Superpower)
         {
             var enemyRigidbody = otherGameObject.GetComponent<Rigidbody>();
             var awayFromPlayer = otherGameObject.transform.position - transform.position;
@@ -60,7 +78,24 @@ public class PlayerController : MonoBehaviour
     private IEnumerator PowerupCountdownRoutine()
     {
         yield return new WaitForSeconds(7);
-        _hasPowerup = false;
+        activatePowerup(false);
+    }
+
+
+    private IEnumerator PowerupProjectileRoutine()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(1);
+        }
+        activatePowerup(false);
+    }
+
+
+
+    private void activatePowerup(bool value)
+    {
+        _hasPowerup = value;
         _powerupIndicator.SetActive(_hasPowerup);
     }
 }
