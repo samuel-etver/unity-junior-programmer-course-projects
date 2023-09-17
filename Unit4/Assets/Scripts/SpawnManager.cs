@@ -55,6 +55,6 @@ public class SpawnManager : MonoBehaviour
 
         var gameObject = Instantiate(PowerupPrefab, spawnPos, PowerupPrefab.transform.rotation);
         var powerupComponent = gameObject.GetComponent<Powerup>();
-        powerupComponent.PowerType = powerType;
+        powerupComponent.PowerType = PowerType.Projectiles;// powerType;
     }
 }

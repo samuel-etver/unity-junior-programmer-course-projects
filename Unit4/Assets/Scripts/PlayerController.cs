@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -32,6 +33,23 @@ public class PlayerController : MonoBehaviour
         _rigidbody.AddForce(_focalPoint.transform.forward * (Speed * forwardInput));
 
         _powerupIndicator.transform.position = transform.position + new Vector3(0, -0.25f, 0);
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+            for (int j = 0; j < enemies.Length; j++)
+            {
+                var enemy = enemies[j];
+                var projectile = Instantiate(ProjectilePrefab);
+                projectile.transform.position = transform.position;
+                projectile.transform.LookAt(new Vector3(enemy.transform.position.x,
+                                                        projectile.transform.position.y,
+                                                        enemy.transform.position.z));
+                projectile.transform.Rotate(90, 0, 0);
+            }
+        }
+
     }
 
 
@@ -87,6 +105,17 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             yield return new WaitForSeconds(1);
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            for (int j = 0; j < enemies.Length; j++)
+            {
+                var enemy = enemies[j];
+                var projectile = Instantiate(ProjectilePrefab);
+                projectile.transform.position = transform.position;
+                projectile.transform.LookAt(new Vector3(enemy.transform.position.x,
+                                                        projectile.transform.position.y,
+                                                        enemy.transform.position.z));
+                projectile.transform.Rotate(90, 0, 0);
+            }
         }
         activatePowerup(false);
     }

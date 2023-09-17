@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7040119666401203990}
   - component: {fileID: 8213951423898376290}
   - component: {fileID: 735360920504720875}
+  - component: {fileID: 4715391132783103538}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: Projectile
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7947109868289978358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.109, y: 0.38887346, z: 0.1876018}
-  m_LocalScale: {x: 0.04, y: 0.08, z: 0.04}
+  m_LocalScale: {x: 0.15, y: 0.3, z: 0.15}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -92,9 +93,22 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7947109868289978358}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &4715391132783103538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7947109868289978358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 915594097c8083d419bf9eab2c8573ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 15
