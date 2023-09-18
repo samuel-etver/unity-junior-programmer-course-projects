@@ -6,9 +6,11 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     public GameObject[] EnemyPrefabs;
+    public GameObject BossPrefab;
     public GameObject PowerupPrefab;
 
     private static readonly float _spawnRange = 9;
+    private static readonly int _spawnBossEveryNWave = 0;
 
     private int _waveNumber = 0;
 
@@ -19,7 +21,14 @@ public class SpawnManager : MonoBehaviour
         if (enemyCount == 0)
         {
             SpawnPowerup();
-            SpawnEnemyWave(++_waveNumber);
+
+            var regularEnemiesCount = ++_waveNumber;
+            if ((_waveNumber - 1) % (1 + _spawnBossEveryNWave) == _spawnBossEveryNWave)
+            {
+                SpawnBoss();
+                regularEnemiesCount--;
+            }
+            SpawnEnemyWave(regularEnemiesCount);
         }
     }
 
@@ -42,6 +51,13 @@ public class SpawnManager : MonoBehaviour
             var spawnPos = GenerateSpawnPosition();
             Instantiate(prefab, spawnPos, prefab.transform.rotation);
         }
+    }
+
+
+    private void SpawnBoss()
+    {
+        var spawnPos = GenerateSpawnPosition();
+        Instantiate(BossPrefab, spawnPos, BossPrefab.transform.rotation);
     }
 
 

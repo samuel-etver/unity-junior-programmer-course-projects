@@ -63,6 +63,9 @@ public class PlayerController : MonoBehaviour
                 case PowerType.Projectiles:
                     StartCoroutine(PowerupProjectileRoutine());
                     break;
+                case PowerType.Smash:
+                    StartCoroutine(PowerupSmushRoutine());
+                    break;
             }
         }
     }
@@ -118,6 +121,12 @@ public class PlayerController : MonoBehaviour
         {
             ShootToEnemy(enemies[i]);
         }
+    }
+
+
+    private IEnumerator PowerupSmushRoutine()
+    {
+        yield return null;
     }
 
 
