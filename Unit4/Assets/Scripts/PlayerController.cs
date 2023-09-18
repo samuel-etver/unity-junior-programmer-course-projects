@@ -36,20 +36,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-            for (int j = 0; j < enemies.Length; j++)
-            {
-                var enemy = enemies[j];
-                var projectile = Instantiate(ProjectilePrefab);
-                projectile.transform.position = transform.position;
-                projectile.transform.LookAt(new Vector3(enemy.transform.position.x,
-                                                        projectile.transform.position.y,
-                                                        enemy.transform.position.z));
-                projectile.transform.Rotate(90, 0, 0);
-            }
+            ShootToEnemies();
         }
-
     }
 
 
@@ -63,7 +51,7 @@ public class PlayerController : MonoBehaviour
             var powerup = other.gameObject.GetComponent<Powerup>();
             _powerType = powerup.PowerType;
 
-            activatePowerup(true);
+            ActivatePowerup(true);
 
             Destroy(other.gameObject);
 
@@ -96,7 +84,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator PowerupCountdownRoutine()
     {
         yield return new WaitForSeconds(7);
-        activatePowerup(false);
+        ActivatePowerup(false);
     }
 
 
@@ -105,24 +93,35 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             yield return new WaitForSeconds(1);
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            for (int j = 0; j < enemies.Length; j++)
-            {
-                var enemy = enemies[j];
-                var projectile = Instantiate(ProjectilePrefab);
-                projectile.transform.position = transform.position;
-                projectile.transform.LookAt(new Vector3(enemy.transform.position.x,
-                                                        projectile.transform.position.y,
-                                                        enemy.transform.position.z));
-                projectile.transform.Rotate(90, 0, 0);
-            }
+            ShootToEnemies();
         }
-        activatePowerup(false);
+        ActivatePowerup(false);
     }
 
 
+    private void ShootToEnemy(GameObject enemy)
+    {
+        var projectile = Instantiate(ProjectilePrefab);
+        projectile.transform.position = transform.position;
+        projectile.transform.LookAt(new Vector3(enemy.transform.position.x,
+                                                projectile.transform.position.y,
+                                                enemy.transform.position.z));
+        projectile.transform.Rotate(90, 0, 0);
+    }
 
-    private void activatePowerup(bool value)
+
+    private void ShootToEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        for (int i = 0; i < enemies.Length; i++)
+        {
+            ShootToEnemy(enemies[i]);
+        }
+    }
+
+
+    private void ActivatePowerup(bool value)
     {
         _hasPowerup = value;
         _powerupIndicator.SetActive(_hasPowerup);

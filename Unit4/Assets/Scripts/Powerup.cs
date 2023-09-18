@@ -12,15 +12,4 @@ public enum PowerType
 public class Powerup : MonoBehaviour
 {
     public PowerType PowerType;
-
-
-    void Start()
-    {        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

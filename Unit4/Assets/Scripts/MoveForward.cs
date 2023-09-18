@@ -7,6 +7,18 @@ public class MoveForward : MonoBehaviour
 { 
     public float Speed = 5.0f;
 
+    [HideInInspector]
+    public Vector3 LookDirection;
+
+
+    private void Start()
+    {
+        Vector3 startPosition = transform.position;
+        transform.Translate(Vector3.up);
+        LookDirection = transform.position - startPosition;
+        transform.position = startPosition;
+    }
+
 
     void Update()
     {
