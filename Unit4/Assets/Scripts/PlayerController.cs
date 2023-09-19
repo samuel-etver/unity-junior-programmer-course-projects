@@ -34,10 +34,10 @@ public class PlayerController : MonoBehaviour
 
         _powerupIndicator.transform.position = transform.position + new Vector3(0, -0.25f, 0);
 
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            ShootToEnemies();
-        }
+        //if (Input.GetKeyDown(KeyCode.M))
+        //{
+        //    ShootToEnemies();
+        //}
     }
 
 

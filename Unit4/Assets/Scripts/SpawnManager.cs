@@ -9,8 +9,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject BossPrefab;
     public GameObject PowerupPrefab;
 
-    private static readonly float _spawnRange = 9;
-    private static readonly int _spawnBossEveryNWave = 0;
+    private static readonly int _spawnBossEveryNWave = 3;
 
     private int _waveNumber = 0;
 
@@ -35,10 +34,7 @@ public class SpawnManager : MonoBehaviour
 
     private Vector3 GenerateSpawnPosition() 
     {
-        float spawnPosX = Random.Range(-_spawnRange, _spawnRange);
-        float spawnPosZ = Random.Range(-_spawnRange, _spawnRange);
-
-        return new (spawnPosX, 0, spawnPosZ);
+        return SpawnPosition.Generate();
     }
 
 

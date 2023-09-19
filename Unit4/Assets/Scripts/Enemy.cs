@@ -5,7 +5,6 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float Speed;
-    public bool isBoss = false;
 
     private Rigidbody _rigidbody;
     private GameObject _player;
