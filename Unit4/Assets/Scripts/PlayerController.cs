@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -17,6 +18,18 @@ public class PlayerController : MonoBehaviour
 
     public GameObject ProjectilePrefab;
 
+    private enum SmashState
+    {
+        None,
+        Up,
+        Down
+    };
+
+    private SmashState _smashState = SmashState.None;
+    private Vector3 _smashPosition;
+    private static readonly float _smashDuration = 0.3f;
+    private static readonly float _smashSpeed = 25.0f;
+
 
     void Start()
     {
@@ -29,10 +42,22 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float forwardInput = Input.GetAxis("Vertical");
-        _rigidbody.AddForce(_focalPoint.transform.forward * (Speed * forwardInput));
+        if (_smashState == SmashState.None)
+        {
+            float forwardInput = Input.GetAxis("Vertical");
+            _rigidbody.AddForce(_focalPoint.transform.forward * (Speed * forwardInput));
+        }
+        else
+        {
+            float direction = _smashState == SmashState.Up ? 1 : -1;
+            _smashPosition += new Vector3(0, Time.deltaTime * direction * _smashSpeed, 0);
+            transform.position = _smashPosition;
+        }
 
         _powerupIndicator.transform.position = transform.position + new Vector3(0, -0.25f, 0);
+
+
+
 
         //if (Input.GetKeyDown(KeyCode.M))
         //{
@@ -126,7 +151,20 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator PowerupSmushRoutine()
     {
-        yield return null;
+        for (int i = 0; i < 3; i++)
+        {
+
+            _smashPosition = this.transform.position;
+            _smashState = SmashState.Up;
+            yield return new WaitForSeconds(_smashDuration / 2);
+
+            _smashState = SmashState.Down;
+            yield return new WaitForSeconds(_smashDuration / 2);
+
+            _smashState = SmashState.None;
+            yield return new WaitForSeconds(2.0f);
+        }
+        ActivatePowerup(false);
     }
 
 
