@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public GameManager GameManager;
+
     public GameObject[] EnemyPrefabs;
     public GameObject BossPrefab;
     public GameObject PowerupPrefab;
@@ -17,7 +19,7 @@ public class SpawnManager : MonoBehaviour
     private void Update()
     {
         int enemyCount = FindObjectsOfType<Enemy>().Length;
-        if (enemyCount == 0)
+        if (enemyCount == 0 && GameManager.GameOver == false)
         {
             SpawnPowerup();
 

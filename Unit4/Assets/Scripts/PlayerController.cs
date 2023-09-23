@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _smashPosition;
     private static readonly float _smashDuration = 0.3f;
     private static readonly float _smashSpeed = 25.0f;
+    private static readonly float _smashForce = 250.0f;
 
 
     void Start()
@@ -55,8 +56,6 @@ public class PlayerController : MonoBehaviour
         }
 
         _powerupIndicator.transform.position = transform.position + new Vector3(0, -0.25f, 0);
-
-
 
 
         //if (Input.GetKeyDown(KeyCode.M))
@@ -102,10 +101,24 @@ public class PlayerController : MonoBehaviour
 
         if (otherGameObject.CompareTag("Enemy") && _hasPowerup && _powerType == PowerType.Superpower)
         {
-            var enemyRigidbody = otherGameObject.GetComponent<Rigidbody>();
-            var awayFromPlayer = otherGameObject.transform.position - transform.position;
-            enemyRigidbody.AddForce(awayFromPlayer * _powerupStrength, ForceMode.Impulse);
+            ForceEnemy(otherGameObject, _powerupStrength);
         }
+    }
+
+
+    private void ForceEnemy(GameObject enemy, float strength, bool distanceDependent = false)
+    {
+        var enemyRigidbody = enemy.GetComponent<Rigidbody>();
+        var awayFromPlayer = enemy.transform.position - transform.position;
+        float distanceK = 1.0f;
+        if (distanceDependent)
+        {
+            float distance = Vector3.Distance(enemy.transform.position, transform.position);
+            distanceK = (float)(1.0f / Math.Pow(1.0f + distance, 2.0f));
+            Debug.Log(distanceK);
+        }
+        var force = awayFromPlayer * (strength * distanceK);
+        enemyRigidbody.AddForce(force, ForceMode.Impulse);
     }
 
 
@@ -138,9 +151,15 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private GameObject[] FindEnemies()
+    {
+        return GameObject.FindGameObjectsWithTag("Enemy");
+    }
+
+
     private void ShootToEnemies()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemies = FindEnemies();
 
         for (int i = 0; i < enemies.Length; i++)
         {
@@ -153,10 +172,20 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-
             _smashPosition = this.transform.position;
             _smashState = SmashState.Up;
             yield return new WaitForSeconds(_smashDuration / 2);
+
+            void Smash()
+            {
+                GameObject[] enemies = FindEnemies();
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    ForceEnemy(enemies[i], _smashForce, true);
+                }
+            };
+
+            Smash();
 
             _smashState = SmashState.Down;
             yield return new WaitForSeconds(_smashDuration / 2);
@@ -166,6 +195,7 @@ public class PlayerController : MonoBehaviour
         }
         ActivatePowerup(false);
     }
+
 
 
     private void ActivatePowerup(bool value)
