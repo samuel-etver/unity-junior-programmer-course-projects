@@ -95,5 +95,16 @@
 
 ### Unit Objective
 
+* Create enemies
+* Add a new more difficult type of enemy and randomly select which is spawned
+* Create a powerup that gives the player a temporary strength boost
+* Create a powerup that gives the player the ability to launch projectiles at enemies to knock them off
+* Create a powerup that allows the player to hop up into the air and smash down onto the ground, sending any enemies nearby flying away from the player
+* After a certain number of waves, program a “boss battle”, where the boss has some completely new abilities. It occasionally generates little minions
    
 ![](Screenshots/unit4-screenshot1.png)
+
+
+## Challenge 4
+
+### Challenge Objective
