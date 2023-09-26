@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RotateCameraX : MonoBehaviour
 {
-    private static readonly float _speed = 200;
     public GameObject Player;
+
+    private static readonly float _speed = 200;
 
 
     void Update()

@@ -1,19 +1,22 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControllerX : MonoBehaviour
 {
+    public GameObject PowerupIndicator;
+    public ParticleSystem DustParticles;
+
     private Rigidbody _playerRb;
     private GameObject _focalPoint;
     private static readonly float _speed = 500;
 
-    public GameObject powerupIndicator;
     private bool _hasPowerup;
-    private static readonly int _powerUpDuration = 5;
+    private static readonly int _powerUpDuration = 15;
 
     private static readonly float _normalStrength = 10; // how hard to hit enemy without powerup
-    private static readonly float _powerupStrength = 25; // how hard to hit enemy with powerup
+    private static readonly float _powerupStrength = 40; // how hard to hit enemy with powerup
+
+    private static readonly float _boost = 5.0f;
     
 
     void Start()
@@ -26,11 +29,20 @@ public class PlayerControllerX : MonoBehaviour
     void Update()
     {
         // Add force to player in direction of the focal point (and camera)
+        float boostFactor = 1.0f;
+        
+        if (Input.GetKey(KeyCode.Space))
+        {
+            boostFactor = _boost;
+            if (DustParticles.isPlaying == false)
+                DustParticles.Play();
+        }
+
         float verticalInput = Input.GetAxis("Vertical");
-        _playerRb.AddForce(_focalPoint.transform.forward * (verticalInput * _speed * Time.deltaTime)); 
+        _playerRb.AddForce(_focalPoint.transform.forward * (boostFactor * verticalInput * _speed * Time.deltaTime)); 
 
         // Set powerup indicator position to beneath player
-        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.6f, 0);
+        PowerupIndicator.transform.position = transform.position + new Vector3(0, -0.6f, 0);
     }
 
 
@@ -41,7 +53,7 @@ public class PlayerControllerX : MonoBehaviour
         {
             Destroy(other.gameObject);
             _hasPowerup = true;
-            powerupIndicator.SetActive(true);
+            PowerupIndicator.SetActive(true);
             StartCoroutine(nameof(PowerupCooldown)); 
         }
     }
@@ -52,7 +64,7 @@ public class PlayerControllerX : MonoBehaviour
     {
         yield return new WaitForSeconds(_powerUpDuration);
         _hasPowerup = false;
-        powerupIndicator.SetActive(false);
+        PowerupIndicator.SetActive(false);
     }
 
 
@@ -74,7 +86,4 @@ public class PlayerControllerX : MonoBehaviour
             }
         }
     }
-
-
-
 }

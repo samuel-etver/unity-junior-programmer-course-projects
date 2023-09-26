@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyX : MonoBehaviour
 {
-    public float speed;
+    public float Speed;
+
     private Rigidbody _enemyRb;
     private GameObject _playerGoal;
 
@@ -19,8 +18,8 @@ public class EnemyX : MonoBehaviour
     void Update()
     {
         // Set enemy direction towards player goal and move there
-        Vector3 lookDirection = (_playerGoal.transform.position - transform.position).normalized;
-        _enemyRb.AddForce(lookDirection * (speed * Time.deltaTime));
+        var lookDirection = (_playerGoal.transform.position - transform.position).normalized;
+        _enemyRb.AddForce(lookDirection * (Speed * Time.deltaTime));
 
     }
 

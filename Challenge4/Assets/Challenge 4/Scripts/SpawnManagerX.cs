@@ -5,13 +5,17 @@ public class SpawnManagerX : MonoBehaviour
     public GameObject EnemyPrefab;
     public GameObject PowerupPrefab;
 
+    public GameObject Player;
+
     private static readonly float _spawnRangeX = 10;
     private static readonly float _spawnZMin = 15; // set min spawn Z
     private static readonly float _spawnZMax = 25; // set max spawn Z
 
     private int _waveCount = 1;
 
-    public GameObject Player; 
+    private static readonly float _enemySpeedDelta = 10;
+    private float _enemySpeed = 0;
+
 
 
     void Update()
@@ -22,7 +26,6 @@ public class SpawnManagerX : MonoBehaviour
         {
             SpawnEnemyWave(_waveCount);
         }
-
     }
 
 
@@ -48,12 +51,18 @@ public class SpawnManagerX : MonoBehaviour
         // Spawn number of enemy balls based on wave number
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Instantiate(EnemyPrefab, GenerateSpawnPosition(), EnemyPrefab.transform.rotation);
+            var enemyGameObject = Instantiate(EnemyPrefab, GenerateSpawnPosition(), EnemyPrefab.transform.rotation);
+            var enemy = enemyGameObject.GetComponent<EnemyX>();
+            if (_enemySpeed == 0)
+            {
+                _enemySpeed = enemy.Speed;
+            }
+            enemy.Speed = _enemySpeed;
+            _enemySpeed += _enemySpeedDelta;
         }
 
         _waveCount++;
         ResetPlayerPosition(); // put player back at start
-
     }
 
 
