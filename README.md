@@ -108,3 +108,12 @@
 ## Challenge 4
 
 ### Challenge Objective
+
+* When you hit an enemy, it should send it away from the player
+* A new wave should spawn when all enemy balls have been removed
+* The powerup should only last for a certain duration, then disappear
+* One enemy should be spawned in wave 1, two in wave 2, three in wave 3, etc
+* The enemy balls should go towards the “Player Goal” object
+* The player should get a speed boost whenever the player presses spacebar - and a particle effect should appear when they use it
+* The enemies speed should increase in speed by a small amount with every new wave
+
