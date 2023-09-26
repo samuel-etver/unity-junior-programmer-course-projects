@@ -14,7 +14,7 @@ public class PlayerControllerX : MonoBehaviour
     private static readonly int _powerUpDuration = 15;
 
     private static readonly float _normalStrength = 10; // how hard to hit enemy without powerup
-    private static readonly float _powerupStrength = 40; // how hard to hit enemy with powerup
+    private static readonly float _powerupStrength = 15; // how hard to hit enemy with powerup
 
     private static readonly float _boost = 5.0f;
     
