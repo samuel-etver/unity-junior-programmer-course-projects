@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    public GameManager GameManager;
+    public ParticleSystem ExplosionParticle;
+
+    public int PointValue = 5;
+
     private Rigidbody _rigidbody;
 
     private static readonly float _minSpeed = 12.0f;
@@ -42,12 +47,21 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Destroy(gameObject);
+        if (GameManager.isGameActive)
+        {
+            Instantiate(ExplosionParticle, transform.position, ExplosionParticle.transform.rotation);
+            Destroy(gameObject);
+            GameManager.UpdateScore(PointValue);
+        }
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
+        if (gameObject.CompareTag("Bad") == false)
+        {
+            GameManager.GameOver();
+        }
         Destroy(gameObject);
     }
 }
