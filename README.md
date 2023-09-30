@@ -124,5 +124,21 @@
 
 ### Unit Objective
 
+* Create good and bad targets
+* Toss objects randomly in the air
+* Destroy target with click and sensor
+* Add score when targets are destroyed
+* Add a Particle explosion
+* Add difficulty buttons 
+* Create a "Lives" UI element that counts down by 1 when an object leaves the bottom of the screen and triggers Game Over when Lives reaches 0
+* Add background music and a UI Slider element to adjust the volume
+* During gameplay, allow the user to press a key to toggle between pausing and resuming the game, where a pause screen comes up while the game is paused
+* Program click-and-swipe functionality, generating a trail where the mouse has been dragged
    
 ![](Screenshots/unit5-screenshot1.png)
+
+
+## Challenge 5
+
+### Challenge Objective
+
