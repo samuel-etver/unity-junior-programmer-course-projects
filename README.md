@@ -136,3 +136,9 @@
 * Program click-and-swipe functionality, generating a trail where the mouse has been dragged
    
 ![](Screenshots/unit5-screenshot1.png)
+
+
+## Challenge 5
+
+### Challenge Objective
+
