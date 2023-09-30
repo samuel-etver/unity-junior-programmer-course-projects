@@ -42,7 +42,11 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool Paused;
 
-    private static readonly float _spawnRate = 1.0f;
+    private static readonly float _easySpawnRate = 4.0f;
+    private static readonly float _mediumSpawnRate = 2.0f;
+    private static readonly float _hardSpawnRate = 1.0f;
+
+    private float _spawnRate = 1.0f;
 
     private static float _audioVolume = 1.0f;
 
@@ -145,6 +149,19 @@ public class GameManager : MonoBehaviour
     {
         isGameActive = true;
         Difficulty = difficulty;
+
+        switch(difficulty)
+        {
+            case GameDifficulty.Hard:
+                _spawnRate = _hardSpawnRate;
+                break;
+            case GameDifficulty.Medium:
+                _spawnRate = _mediumSpawnRate;
+                break;
+            case GameDifficulty.Easy:
+                _spawnRate = _easySpawnRate;
+                break;
+        }
 
         StartPanel.gameObject.SetActive(false);
 

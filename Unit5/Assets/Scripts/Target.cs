@@ -15,7 +15,7 @@ public class Target : MonoBehaviour
     private static readonly float _maxSpeed = 16.0f;
     private static readonly float _maxTorque = 10.0f;
     private static readonly float _xRange = 4.0f;
-    private static readonly float _ySpawnPos = 6.0f;
+    private static readonly float _ySpawnPos = 0.0f;
 
 
     private void Start()
