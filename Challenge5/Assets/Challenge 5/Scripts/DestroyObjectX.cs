@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DestroyObjectX : MonoBehaviour
 {
@@ -8,6 +6,4 @@ public class DestroyObjectX : MonoBehaviour
     {
         Destroy(gameObject, 2); // destroy particle after 2 seconds
     }
-
-
 }
