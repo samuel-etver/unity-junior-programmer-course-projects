@@ -150,3 +150,9 @@
 * Add a “Time: __” display that counts down from 60 in whole numbers (i.e. 59, 58, 57, etc) and triggers the game over sequence when it reaches 0
    
 ![](Screenshots/challenge5-screenshot1.png)
+
+
+## Error Project
+
+### Project Objective
+
