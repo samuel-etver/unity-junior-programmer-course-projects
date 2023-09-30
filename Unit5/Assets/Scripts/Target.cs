@@ -47,12 +47,7 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (GameManager.isGameActive)
-        {
-            Instantiate(ExplosionParticle, transform.position, ExplosionParticle.transform.rotation);
-            Destroy(gameObject);
-            GameManager.UpdateScore(PointValue);
-        }
+        DestroyTarget();
     }
 
 
@@ -60,8 +55,19 @@ public class Target : MonoBehaviour
     {
         if (gameObject.CompareTag("Bad") == false)
         {
-            GameManager.GameOver();
+            GameManager.DecLives();
         }
         Destroy(gameObject);
+    }
+
+
+    public void DestroyTarget()
+    {
+        if (GameManager.isGameActive)
+        {
+            Instantiate(ExplosionParticle, transform.position, ExplosionParticle.transform.rotation);
+            Destroy(gameObject);
+            GameManager.UpdateScore(PointValue);
+        }
     }
 }

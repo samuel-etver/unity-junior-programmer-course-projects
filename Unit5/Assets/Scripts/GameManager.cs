@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
 
 public enum GameDifficulty
 {
@@ -19,29 +19,48 @@ public enum GameDifficulty
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> Targets;
-    public TextMeshProUGUI GameTitle;
     public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI LivesText;
     public TextMeshProUGUI GameOverText;
     public Button RestartButton;
-    public Button EasyButton;
-    public Button MediumButton;
-    public Button HardButton;
+    public Slider VolumeSlider;
+    public GameObject StartPanel;
+    public GameObject PausePanel;
 
     [HideInInspector]
     public GameDifficulty Difficulty;
 
     [HideInInspector]
-    public bool isGameActive = true;
+    public bool isGameActive;
 
-    private int _score;
+    [HideInInspector]
+    public int Score;
+
+    [HideInInspector]
+    public int Lives;
+
+    [HideInInspector]
+    public bool Paused;
 
     private static readonly float _spawnRate = 1.0f;
+
+    private static float _audioVolume = 1.0f;
 
 
     private void Start()
     {
-        _score = 0;
+        isGameActive = false;
+
+        Score = 0;
+        Lives = 3;
+
+        Paused = false;
+
         UpdateScore(0);
+        UpdateLives(0);
+
+        VolumeSlider.value = _audioVolume;
+        SetVolume();
     }
 
 
@@ -59,8 +78,34 @@ public class GameManager : MonoBehaviour
 
     public void UpdateScore(int scoreToAdd)
     {
-        _score += scoreToAdd;
-        ScoreText.text = "Score: " + _score;
+        Score += scoreToAdd;
+        ScoreText.text = "Score: " + Score;
+    }
+
+
+    public void UpdateLives(int livesToAdd)
+    {
+        int newLives = Lives + livesToAdd;
+
+        if (newLives < 0)
+        {
+            newLives = 0;
+        }
+
+        Lives = newLives;
+
+        LivesText.text = "Lives: " + Lives;
+
+        if (Lives == 0)
+        {
+            GameOver();
+        }
+    }
+
+
+    public void DecLives()
+    {
+        UpdateLives(-1);
     }
 
 
@@ -98,14 +143,48 @@ public class GameManager : MonoBehaviour
 
     private void StartGame(GameDifficulty difficulty)
     {
+        isGameActive = true;
         Difficulty = difficulty;
 
-        GameTitle.gameObject.SetActive(false);
-
-        EasyButton.gameObject.SetActive(false);
-        MediumButton.gameObject.SetActive(false);
-        HardButton.gameObject.SetActive(false);
+        StartPanel.gameObject.SetActive(false);
 
         StartCoroutine(SpawnTargets());
+    }
+
+
+    public void OnVolumeChange()
+    {
+        SetVolume();
+    }
+
+
+    private void SetVolume()
+    {
+        var audioSource = GetComponent<AudioSource>();
+       
+        _audioVolume =
+        audioSource.volume = VolumeSlider.value;       
+    }
+
+
+    private void Update()
+    {
+        if(isGameActive)
+        {
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                TogglePause();
+            }
+        }
+    }
+
+
+    private void TogglePause()
+    {
+        Paused = !Paused;
+
+        Time.timeScale = Paused ? 0.0f : 1.0f;
+        PausePanel.gameObject.SetActive(Paused);
+
     }
 }
