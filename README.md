@@ -142,5 +142,11 @@
 
 ### Challenge Objective
 
+* Center the text on the buttons horizontally and vertically
+* The food should only be destroyed when the player clicks on it, not when the mouse touches it
+* It should always say, “Score: __“ with the value displayed after “Score:”
+* Make the Restart button appear on the game over screen
+* Make the difficulty buttons change the difficulty
+* Add a “Time: __” display that counts down from 60 in whole numbers (i.e. 59, 58, 57, etc) and triggers the game over sequence when it reaches 0
    
 ![](Screenshots/challenge5-screenshot1.png)
