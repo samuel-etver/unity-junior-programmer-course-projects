@@ -165,3 +165,6 @@
 
 ### Project Objective
 
+* Add anything you need to complete the prototype
+   
+![](Screenshots/counter-project-screenshot1.png)
