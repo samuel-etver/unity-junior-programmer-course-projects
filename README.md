@@ -156,3 +156,7 @@
 
 ### Project Objective
 
+* Fix errors
+   
+![](Screenshots/error-project-screenshot1.png)
+
