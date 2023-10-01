@@ -13,6 +13,7 @@
 /Challenge[1-5]-Build
 SP/
 /ErrorProject-Build
+/CounterProject-Build
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/*/[Aa]ssets/**/*.meta

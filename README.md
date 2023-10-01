@@ -160,3 +160,8 @@
    
 ![](Screenshots/error-project-screenshot1.png)
 
+
+## Counter Project
+
+### Project Objective
+
