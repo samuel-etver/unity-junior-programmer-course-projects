@@ -173,3 +173,7 @@
 ## Data Persistence Project
 
 ### Project Objective
+
+* Implement data persistence between sessions
+   
+![](Screenshots/data-persistence-screenshot1.png)
