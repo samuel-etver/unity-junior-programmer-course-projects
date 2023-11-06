@@ -10,10 +10,19 @@ public class GlobalStorage : MonoBehaviour
     [NonSerialized]
     public string PlayerName;
 
+    [HideInInspector]
+    [NonSerialized]
+    public int BestScore = 0;
+
     private void Awake()
     {
-        _instance = this;
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        _instance = this;
         DontDestroyOnLoad(gameObject);
     }
 }

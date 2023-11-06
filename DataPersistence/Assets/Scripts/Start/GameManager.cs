@@ -13,6 +13,7 @@ namespace StartScene
         public void OnStartButtonClick()
         {
             var playerName = PlayerNameInput.text;
+            Debug.Log(playerName);
             var globalStorage = GlobalStorage.Instance;
             globalStorage.PlayerName = playerName;
 

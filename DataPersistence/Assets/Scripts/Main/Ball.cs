@@ -1,20 +1,20 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    private Rigidbody m_Rigidbody;
+    private Rigidbody _rigidbody;
+
 
     void Start()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
     
+
     private void OnCollisionExit(Collision other)
     {
-        var velocity = m_Rigidbody.velocity;
+        var velocity = _rigidbody.velocity;
         
         //after a collision we accelerate a bit
         velocity += velocity.normalized * 0.01f;
@@ -31,6 +31,6 @@ public class Ball : MonoBehaviour
             velocity = velocity.normalized * 3.0f;
         }
 
-        m_Rigidbody.velocity = velocity;
+        _rigidbody.velocity = velocity;
     }
 }

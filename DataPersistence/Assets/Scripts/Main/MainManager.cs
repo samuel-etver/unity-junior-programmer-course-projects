@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 
 public class MainManager : MonoBehaviour
 {
@@ -11,15 +11,17 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
+    public Text BestScoreText;
     public GameObject GameOverText;
     
-    private bool m_Started = false;
-    private int m_Points;
+    private bool _started = false;
+    private int _points;
     
-    private bool m_GameOver = false;
+    private bool _gameOver = false;
+
+    private GlobalStorage _globalStorage;
 
     
-    // Start is called before the first frame update
     void Start()
     {
         const float step = 0.6f;
@@ -30,32 +32,35 @@ public class MainManager : MonoBehaviour
         {
             for (int x = 0; x < perLine; ++x)
             {
-                Vector3 position = new Vector3(-1.5f + step * x, 2.5f + i * 0.3f, 0);
+                Vector3 position = new(-1.5f + step * x, 2.5f + i * 0.3f, 0);
                 var brick = Instantiate(BrickPrefab, position, Quaternion.identity);
                 brick.PointValue = pointCountArray[i];
-                brick.onDestroyed.AddListener(AddPoint);
+                brick.OnDestroyed.AddListener(AddPoint);
             }
         }
+
+        _globalStorage = GlobalStorage.Instance;
 
         UpdateBestScore();
     }
 
+
     private void Update()
     {
-        if (!m_Started)
+        if (!_started)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                m_Started = true;
+                _started = true;
                 float randomDirection = Random.Range(-1.0f, 1.0f);
-                Vector3 forceDir = new Vector3(randomDirection, 1, 0);
+                Vector3 forceDir = new(randomDirection, 1, 0);
                 forceDir.Normalize();
 
                 Ball.transform.SetParent(null);
                 Ball.AddForce(forceDir * 2.0f, ForceMode.VelocityChange);
             }
         }
-        else if (m_GameOver)
+        else if (_gameOver)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -64,20 +69,28 @@ public class MainManager : MonoBehaviour
         }
     }
 
+
     void AddPoint(int point)
     {
-        m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        _points += point;
+        ScoreText.text = $"Score : {_points}";
     }
+
 
     public void GameOver()
     {
-        m_GameOver = true;
+        _gameOver = true;
         GameOverText.SetActive(true);
+        if (_points > _globalStorage.BestScore)
+        {
+            _globalStorage.BestScore = _points;
+            UpdateBestScore();
+        }
     }
+
 
     private void UpdateBestScore()
     {
-
+        BestScoreText.text = $"Best Score: {_globalStorage.PlayerName}: {_globalStorage.BestScore}";
     }
 }
